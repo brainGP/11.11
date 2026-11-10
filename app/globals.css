@@ -113,3 +113,91 @@
 @media(max-width:720px){.minimal-final{min-height:100svh;flex-direction:column;justify-content:flex-start;gap:0;padding:50px 25px 88px}.minimal-final .final-box{height:180px;transform:scale(.58);margin-bottom:0}.dinner-invite{width:min(100%,430px);text-align:center;margin-top:5px}.invite-mark{margin-bottom:11px}.dinner-invite h1{font-size:clamp(48px,13vw,72px);margin-bottom:16px}.dinner-invite p{font-size:16px;line-height:1.7;margin:auto}.minimal-restart{position:fixed}}
 @media(max-height:700px) and (max-width:720px){.minimal-final{padding-top:28px}.minimal-final .final-box{height:140px;transform:scale(.46)}.dinner-invite h1{font-size:48px;margin-bottom:12px}.dinner-invite p{font-size:14px}}
 .invite-signoff{color:#d8bd7d!important;font-style:italic!important;margin-top:15px!important}
+
+/* Mobile-first guidance and loose, reachable sticks inside the carton. */
+.minimal-package-stage{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:calc(18px + env(safe-area-inset-top)) 18px calc(18px + env(safe-area-inset-bottom))}
+.bite-guidance>span{display:block;font:600 12px/1.2 'DM Sans',sans-serif;letter-spacing:.12em;color:#9a875d}
+.bite-guidance p{margin:7px 0 10px;font:500 14px/1.35 'Playfair Display',serif;color:#566858}
+.box-interior.is-open-interior{grid-template-columns:none;grid-template-rows:none;overflow:visible}
+.gift-scene.is-open .inside-stick{position:absolute;left:var(--slot-x);top:var(--slot-y);width:46px;height:48px;min-width:46px;transform:rotate(var(--tilt));border-radius:24px;z-index:1}
+.gift-scene.is-open .inside-stick:nth-of-type(3n+1){z-index:2}
+.gift-scene.is-open .inside-stick .stick-art.compact{transform:rotate(0) scale(.47);transform-origin:center center}
+.gift-scene.is-open .inside-stick:hover .stick-art.compact{transform:rotate(0) scale(.51)}
+.minimal-bite-stage{min-height:min(74svh,590px);justify-content:center;gap:16px}
+.bite-guidance{position:absolute;bottom:max(10px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;padding:10px 12px 0;pointer-events:none}
+.bite-guidance p{margin:6px 0 0}
+.bite-guidance .bite-dots{margin-top:10px}
+.minimal-note{max-height:calc(100svh - 100px - env(safe-area-inset-top) - env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin}
+@media(max-width:720px){
+ .minimal-package-stage{gap:13px;padding-left:12px;padding-right:12px}
+ .minimal-package-stage>.gift-scene{transform:scale(1.04)}
+ .box-interior.is-open-interior{left:22px;right:22px;top:94px;bottom:25px}
+ .gift-scene.is-open .inside-stick{width:46px;height:48px;min-width:46px}
+ .minimal-modal{padding:calc(62px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom));overflow-y:auto;overscroll-behavior:contain}
+ .minimal-bite-stage{min-height:calc(100svh - 90px - env(safe-area-inset-top) - env(safe-area-inset-bottom));width:100%;gap:10px}
+ .minimal-bite-stage .large-stick-wrap{height:min(57svh,470px);width:200px}
+ .minimal-bite-stage .large-stick-wrap .stick-art{transform:rotate(3deg) scale(3)}
+ .minimal-bite-stage .large-stick-wrap:active .stick-art{transform:rotate(3deg) scale(2.9)}
+ .minimal-bite-stage .bite-piece{top:calc(50% - 185px)}
+ .bite-guidance{bottom:max(4px,env(safe-area-inset-bottom))}
+ .minimal-note{width:min(100%,440px);max-height:calc(100svh - 94px - env(safe-area-inset-top) - env(safe-area-inset-bottom));padding:26px 22px 20px}
+ .minimal-note p{font-size:16px;line-height:1.75}
+}
+@media(max-height:700px) and (max-width:720px){.minimal-package-stage{gap:8px}.minimal-package-stage>.gift-scene{transform:scale(.88)}.minimal-bite-stage .large-stick-wrap{height:50svh}.minimal-bite-stage .large-stick-wrap .stick-art{transform:rotate(3deg) scale(2.6)}.minimal-bite-stage .bite-piece{top:calc(50% - 158px)}}
+
+/* Photographic carton and almond Pepero assets. */
+.gift-scene{width:min(294px,78vw);height:auto;aspect-ratio:992/1586;filter:drop-shadow(0 20px 23px #24362330);perspective:none;transform-style:flat}
+.carton-art{position:absolute;inset:0;isolation:isolate}
+.carton-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;user-select:none;pointer-events:none;transition:opacity .48s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.carton-photo-closed{opacity:1;z-index:1}
+.carton-photo-open{opacity:0;z-index:1;transform:scale(.94) translateY(7px)}
+.gift-scene.is-open .carton-photo-closed{opacity:0;transform:scale(.97) translateY(8px)}
+.gift-scene.is-open .carton-photo-open{opacity:1;transform:scale(1) translateY(0)}
+.gift-scene.is-open.is-shaking .carton-photo-open{animation:carton-arrive .9s cubic-bezier(.16,.75,.25,1) both}
+@keyframes carton-arrive{0%{transform:scale(.88) translateY(28px);opacity:0}65%{transform:scale(1.025) translateY(-4px);opacity:1}100%{transform:scale(1)}}
+.box-shadow{z-index:-1;width:68%;left:16%;bottom:1%;height:8%;filter:blur(15px);background:#29352335}
+.carton-print{position:absolute;z-index:2;display:flex;align-items:center;flex-direction:column;color:#fff7e3;text-shadow:0 1px 2px #142b18a8;pointer-events:none}
+.carton-print-closed{left:17%;top:26%;width:62%;height:66%}
+.carton-print-open{opacity:0;transition:opacity .28s ease}
+.gift-scene.is-open .carton-print-closed{opacity:0;transition:opacity .22s ease}
+.gift-scene.is-open .carton-print-open{opacity:1}
+.carton-print-closed>span,.carton-print-open>span{font:700 clamp(7px,2.2vw,10px)/1 Arial,sans-serif;letter-spacing:.16em;color:#f1e6bc}
+.carton-print-closed>strong,.carton-print-open>strong{font:900 clamp(24px,7vw,33px)/1 Arial,sans-serif;letter-spacing:-.045em;margin-top:7px;color:#fff;text-shadow:0 2px 1px #214c2e,0 4px 5px #173c2655}
+.carton-print-closed>em,.carton-print-open>em{font:italic 600 clamp(16px,4.4vw,21px)/1 Georgia,serif;letter-spacing:.02em;color:#eadb9f;margin-top:3px}
+.carton-product-sticks{display:flex;align-items:center;justify-content:center;gap:8px;position:absolute;top:34%;height:38%;width:68%;overflow:hidden}
+.carton-product-sticks .stick-art{height:100%;width:22px;transform:rotate(-15deg)}
+.carton-product-sticks .stick-art+ .stick-art{transform:rotate(12deg) translateY(5px)}
+.carton-print-closed>small{position:absolute;bottom:4%;font:700 clamp(5px,1.5vw,7px)/1.2 Arial,sans-serif;letter-spacing:.09em;color:#e9e7c9;white-space:nowrap}
+.carton-print-open{left:21%;top:82%;width:58%;height:14%;justify-content:center}
+.carton-print-open>span{font-size:7px}.carton-print-open>strong{font-size:clamp(15px,4.7vw,22px);margin-top:3px}.carton-print-open>em{font-size:12px;margin-top:1px}
+.box-interior.is-open-interior{position:absolute;z-index:3;left:21%;top:16%;bottom:auto;right:auto;width:55%;height:62%;overflow:visible;display:block;opacity:1;background:transparent;border:0;border-radius:0;box-shadow:none;pointer-events:none}
+.box-interior.is-open-interior .box-lining{display:none}
+.gift-scene.is-open .inside-stick{position:absolute;left:var(--slot-x);top:var(--slot-y);width:48px;height:66px;min-width:48px;display:grid;place-items:center;padding:0;border:0;border-radius:24px;background:transparent;box-shadow:none;opacity:1;transform:rotate(var(--tilt));z-index:1;cursor:pointer;pointer-events:auto;touch-action:manipulation;animation:photo-stick-arrive .56s cubic-bezier(.18,.8,.2,1) calc(.15s + var(--i)*.045s) both}
+.gift-scene.is-open .inside-stick:nth-of-type(4n+1){z-index:2}
+.gift-scene.is-open .inside-stick:disabled{cursor:default;pointer-events:none}
+.stick-photo{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%;pointer-events:none;user-select:none;filter:drop-shadow(1px 2px 2px #21140e50);clip-path:polygon(0 var(--bite-height,0%),12% calc(var(--bite-height,0%) + 1.3%),23% calc(var(--bite-height,0%) - .5%),35% calc(var(--bite-height,0%) + 1.8%),49% calc(var(--bite-height,0%) - .6%),64% calc(var(--bite-height,0%) + 1.4%),77% calc(var(--bite-height,0%) - .7%),90% calc(var(--bite-height,0%) + 1.2%),100% var(--bite-height,0%),100% 100%,0 100%)}
+.stick-art.eaten-1{--bite-height:19%}.stick-art.eaten-2{--bite-height:39%}.stick-art.eaten-3{--bite-height:63%;opacity:.45}
+.stick-art.compact{width:25px;height:79px;transform:rotate(0);filter:none}
+.gift-scene.is-open .inside-stick .stick-art.compact{width:35px;height:98px;transform:rotate(0) scale(1);transform-origin:center;filter:drop-shadow(0 2px 2px #071b1160);transition:transform .18s,filter .18s}
+.gift-scene.is-open .inside-stick .stick-photo{transform:scaleX(1.8)}
+.gift-scene.is-open .inside-stick:hover .stick-art.compact{transform:rotate(0) scale(1.06);filter:drop-shadow(0 4px 3px #071b1180)}
+.gift-scene.is-open .inside-stick:active .stick-art.compact{transform:rotate(0) scale(.93)}
+.minimal-bite-stage .large-stick-wrap .stick-art{width:58px;height:min(55svh,430px);transform:rotate(3deg) scale(1);filter:drop-shadow(0 12px 13px #24191130)}
+.minimal-bite-stage .large-stick-wrap .stick-photo{object-fit:cover}
+.minimal-bite-stage .large-stick-wrap:active .stick-art{transform:rotate(3deg) scale(.96)}
+.minimal-bite-stage .large-stick-wrap .bite-piece{background:radial-gradient(ellipse at 30% 45%,#e4c797 0 10%,transparent 12%),radial-gradient(ellipse at 70% 62%,#c39863 0 12%,transparent 14%),linear-gradient(135deg,#76513a,#3d281f)}
+.gift-scene.is-shaking{animation:tap-shake .42s cubic-bezier(.36,.07,.19,.97) both;transform-origin:50% 85%}
+@keyframes photo-stick-arrive{0%{opacity:0;transform:translateY(13px) rotate(var(--tilt)) scale(.7)}78%{opacity:1;transform:translateY(-2px) rotate(var(--tilt)) scale(1.04)}100%{opacity:1;transform:rotate(var(--tilt)) scale(1)}}
+@media(max-width:720px){
+ .gift-scene{width:min(320px,92vw)}
+ .minimal-home>.gift-scene{transform:scale(.94)}
+ .minimal-package-stage{gap:12px}
+ .minimal-package-stage>.gift-scene{transform:scale(1)}
+ .box-interior.is-open-interior{left:21%;width:55%;top:16%;height:62%}
+ .gift-scene.is-open .inside-stick{width:48px;height:66px;min-width:48px}
+ .gift-scene.is-open .inside-stick .stick-art.compact{width:35px;height:98px}
+ .minimal-bite-stage .large-stick-wrap{height:min(65svh,500px);width:200px}
+ .minimal-bite-stage .large-stick-wrap .stick-art{width:68px;height:min(55svh,440px)}
+}
+@media(max-height:700px) and (max-width:720px){.gift-scene{width:min(260px,80vw)}.minimal-bite-stage .large-stick-wrap .stick-art{height:48svh}.box-interior.is-open-interior{height:62%}}
+@media(prefers-reduced-motion:reduce){.gift-scene.is-open.is-shaking .carton-photo-open,.gift-scene.is-open .inside-stick{animation-duration:.01ms!important;animation-delay:0ms!important}}

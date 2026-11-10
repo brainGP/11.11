@@ -10,35 +10,24 @@ type Stage = 'intro' | 'opening' | 'collection' | 'eating' | 'message-reveal' | 
 
 function Pepero({ eaten = 0, compact = false }: { eaten?: number; compact?: boolean }) {
   return <span className={`stick-art ${compact ? 'compact' : ''} eaten-${eaten}`} aria-hidden="true">
-    <i className="coating" /><i className="crumb-line c1" /><i className="crumb-line c2" /><i className="biscuit" />
+    <img className="stick-photo" src="/images/pepero-stick-photo.webp" alt="" draggable={false} />
   </span>;
 }
-function GiftBox({ opened, onOpen, shaking = false, consumed = [], onSelect, showLid = true }: { opened: boolean; onOpen?: () => void; shaking?: boolean; consumed?: boolean[]; onSelect?: (id: number) => void; showLid?: boolean }) {
+function GiftBox({ opened, onOpen, shaking = false, consumed = [], onSelect }: { opened: boolean; onOpen?: () => void; shaking?: boolean; consumed?: boolean[]; onSelect?: (id: number) => void; showLid?: boolean }) {
   const remainingIds = Array.from({ length: 11 }, (_, id) => id).filter(id => !consumed[id]);
-  const lastRowStart = remainingIds.length - remainingIds.length % 4;
-  const lastRowRemainder = remainingIds.length % 4;
-  const tilts = [-6, 4, -3, 7, -4, 3, -7, 5, -2, 6, -5];
-  const verticalOffsets = [-3, 2, -1, 4, 1, -4, 3, -2, 4, -3, 1];
-  return <div className={`gift-scene ${opened ? 'is-open' : ''} ${shaking ? 'is-shaking' : ''}`} onClick={onOpen} role={onOpen ? 'button' : undefined} tabIndex={onOpen ? 0 : undefined} onKeyDown={onOpen ? e => (e.key === 'Enter' || e.key === ' ') && onOpen() : undefined} aria-label={onOpen ? 'Open the Almond Pepero carton' : 'Almond Pepero carton, open'}>
-    <div className="box-shadow" />
-    <div className={`box-interior ${opened ? 'is-open-interior' : ''}`}><div className="box-lining" />{remainingIds.map((id, slot) => <button key={id} className="inside-stick" style={{ '--i': slot, '--tilt': `${tilts[id]}deg`, '--stick-y': `${verticalOffsets[id]}px`, gridColumnStart: slot === lastRowStart && lastRowRemainder ? Math.floor((4 - lastRowRemainder) / 2) + 1 : undefined } as React.CSSProperties} aria-label={`Take Pepero ${String(id + 1).padStart(2, '0')}`} disabled={!onSelect} onClick={event => { event.stopPropagation(); onSelect?.(id); }}><Pepero compact /></button>)}</div>
-    <div className="box-body">
-      <div className="box-side" />
-      <span className="box-lotte">LOTTE</span>
-      <span className="box-tagline">Say hello with</span>
-      <span className="box-brand">PEPERO</span>
-      <span className="box-korean">빼빼로</span>
-      <span className="box-flavor">almond</span>
-      <svg className="box-product-art" viewBox="0 0 190 130" role="img" aria-label="Almond covered chocolate biscuit sticks">
-        <defs><linearGradient id="choco" x1="0" x2="1" y1="0" y2="1"><stop stopColor="#80523a"/><stop offset=".48" stopColor="#55372c"/><stop offset="1" stopColor="#39251e"/></linearGradient><linearGradient id="almond" x1="0" x2="1"><stop stopColor="#f1d9a2"/><stop offset="1" stopColor="#c49757"/></linearGradient></defs>
-        <g fill="none" stroke="url(#choco)" strokeWidth="14" strokeLinecap="round"><path d="M39 105 117 27"/><path d="m75 113 71-76"/></g>
-        <g fill="url(#almond)" stroke="#f4dda9" strokeWidth=".7"><ellipse cx="50" cy="91" rx="4" ry="2.5" transform="rotate(-35 50 91)"/><ellipse cx="62" cy="78" rx="4" ry="2.5" transform="rotate(38 62 78)"/><ellipse cx="72" cy="67" rx="4" ry="2.5" transform="rotate(-20 72 67)"/><ellipse cx="84" cy="54" rx="4" ry="2.5" transform="rotate(40 84 54)"/><ellipse cx="96" cy="42" rx="4" ry="2.5" transform="rotate(-35 96 42)"/><ellipse cx="88" cy="100" rx="4" ry="2.5" transform="rotate(-25 88 100)"/><ellipse cx="101" cy="86" rx="4" ry="2.5" transform="rotate(35 101 86)"/><ellipse cx="114" cy="72" rx="4" ry="2.5" transform="rotate(-30 114 72)"/><ellipse cx="126" cy="59" rx="4" ry="2.5" transform="rotate(35 126 59)"/></g>
-        <g fill="url(#almond)"><ellipse cx="142" cy="104" rx="13" ry="7" transform="rotate(-24 142 104)"/><ellipse cx="37" cy="42" rx="12" ry="6" transform="rotate(35 37 42)"/><path d="m31 108 5-7 4 8-7 3z"/><path d="m154 25 4-6 5 7-6 3z"/></g>
-      </svg>
-      <span className="box-footer">NO. 1 BRAND IN KOREA <b>37 g · 18% ALMOND</b></span>
-    </div>
-    {showLid && <div className="box-lid"><span>LOTTE</span><b>PEPERO</b></div>}
+  const placements = [[7, 0, -5], [39, 2, 4], [72, 0, -2], [0, 25, 3], [35, 23, -4], [67, 27, 4], [8, 50, -4], [42, 49, 3], [75, 50, -2], [23, 75, 5], [57, 73, -6]];
+  return <div className={`gift-scene ${opened ? 'is-open' : ''} ${shaking ? 'is-shaking' : ''}`} onClick={onOpen} role={onOpen ? 'button' : undefined} tabIndex={onOpen ? 0 : undefined} onKeyDown={onOpen ? e => (e.key === 'Enter' || e.key === ' ') && onOpen() : undefined} aria-label={onOpen ? 'Tap the Almond Pepero carton to open it' : 'Open Almond Pepero carton'}>
     {opened && <div className="open-spark">✦</div>}
+    <div className="box-shadow" />
+    <div className="carton-art">
+      <img className="carton-photo carton-photo-closed" src="/images/pepero-carton-closed.webp" alt="" draggable={false} />
+      <img className="carton-photo carton-photo-open" src="/images/pepero-carton-open.webp" alt="" draggable={false} />
+      <div className="carton-print carton-print-closed"><span>LOTTE</span><strong>PEPERO</strong><em>almond</em><div className="carton-product-sticks"><Pepero compact /><Pepero compact /></div><small>NO. 1 BRAND IN KOREA · 37 g</small></div>
+      <div className="carton-print carton-print-open"><span>LOTTE</span><strong>PEPERO</strong><em>almond</em></div>
+      <div className={`box-interior ${opened ? 'is-open-interior' : ''}`}>
+        {remainingIds.map((id, slot) => { const [x, y, tilt] = placements[id]; return <button key={id} className="inside-stick" style={{ '--i': slot, '--tilt': `${tilt}deg`, '--slot-x': `${x}%`, '--slot-y': `${y}%` } as React.CSSProperties} aria-label={`Take Pepero ${String(id + 1).padStart(2, '0')}`} disabled={!onSelect} onClick={event => { event.stopPropagation(); onSelect?.(id); }}><Pepero compact /></button>; })}
+      </div>
+    </div>
   </div>;
 }
 
@@ -125,7 +114,7 @@ export default function Home() {
           <div className={`large-stick-wrap bite-${bites[selected]}`} onClick={takeBite} role="button" tabIndex={0} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') takeBite(); }} aria-label={`Pepero, ${bites[selected]} of 3 bites`}>
             <span className="bite-shadow" /><Pepero eaten={bites[selected]} /><i className="bite-piece" key={bites[selected]} aria-hidden="true" />
             {Array.from({ length: 9 }, (_, index) => <i className={`crumb crumb-${index}`} key={index} style={{ '--dx': `${(index % 3 - 1) * 18}px`, '--dy': `${-18 - (index % 4) * 7}px` } as React.CSSProperties} />)}
-          </div><div className="bite-dots" aria-hidden="true">{Array.from({ length: 3 }, (_, index) => <i key={index} className={index < bites[selected] ? 'done' : ''} />)}</div>
+          </div><div className="bite-guidance"><span>{bites[selected]} / 3</span><p>Хайраа, жаахан хаз даа ♡</p><div className="bite-dots" aria-hidden="true">{Array.from({ length: 3 }, (_, index) => <i key={index} className={index < bites[selected] ? 'done' : ''} />)}</div></div>
         </motion.div>}
       </AnimatePresence>
     </motion.div>}
